@@ -1,10 +1,6 @@
 import HttpException from "../../utils/httpException";
 import userModel from "./user.model";
-import {
-  UserAttributes,
-  UserCreationAttributes,
-  UserInstance,
-} from "./user.type";
+import { UserCreationAttributes, UserInstance } from "./user.type";
 import userUtil from "./user.util";
 import jwt from "jsonwebtoken";
 

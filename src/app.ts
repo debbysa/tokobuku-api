@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import userRouter from "./api/user/user.router";
 import verifyToken from "./middleware/verifyToken";
+import productRouter from "./api/product/product.router";
 
 const app = express();
 
@@ -16,5 +17,7 @@ app.get("/hello", (req: Request, res: Response) => {
     message: "Hello, World!",
   });
 });
+
+app.use(productRouter);
 
 export default app;
