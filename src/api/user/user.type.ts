@@ -1,9 +1,14 @@
-import { BuildOptions, Model } from "sequelize/types";
+import { Model, Optional } from "sequelize";
 
-export interface User {
+export interface UserAttributes {
+  id_user: number;
   email: string;
   password: string;
 }
-export type UserStatic = typeof Model & {
-  new: (values?: object, option?: BuildOptions) => User;
-};
+
+export interface UserCreationAttributes
+  extends Optional<UserAttributes, "id_user"> {}
+
+export interface UserInstance
+  extends Model<UserAttributes, UserCreationAttributes>,
+    UserAttributes {}

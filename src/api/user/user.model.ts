@@ -1,14 +1,14 @@
 import { DataTypes } from "sequelize";
-import { format } from "sequelize/types/lib/utils";
 import sequelize from "../../utils/database";
-import { UserStatic } from "./user.type";
+import { UserInstance } from "./user.type";
 
-const userModel = <UserStatic>sequelize.define(
+const userModel = sequelize.define<UserInstance>(
   "user",
   {
     id_user: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     email: {
       type: DataTypes.STRING,

@@ -1,16 +1,20 @@
 import express, { Request, Response } from "express";
+import cors from "cors";
+import userRouter from "./api/user/user.router";
+import verifyToken from "./middleware/verifyToken";
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
+app.use(userRouter);
 
-app.get("/", (req: Request, res: Response) => {
+app.use(verifyToken);
+app.get("/hello", (req: Request, res: Response) => {
   res.json({
-    isSuccess: true,
-    message: "Ini halaman utama",
+    isSucces: true,
+    message: "Hello, World!",
   });
 });
-
-// middleware disini
 
 export default app;
