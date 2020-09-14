@@ -3,6 +3,7 @@ import cors from "cors";
 import userRouter from "./api/user/user.router";
 import verifyToken from "./middleware/verifyToken";
 import productRouter from "./api/product/product.router";
+import orderRouter from "./api/order/order.router";
 
 const app = express();
 
@@ -19,5 +20,6 @@ app.get("/hello", (req: Request, res: Response) => {
 });
 
 app.use(productRouter);
+app.use(orderRouter);
 
 export default app;

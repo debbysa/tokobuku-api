@@ -20,6 +20,7 @@ const verifyToken = (req: UserRequest, res: Response, next: NextFunction) => {
     if (!user) throw new HttpException(403, "no user found");
     req.user = user;
 
+    // console.log(req.user);
     next();
   });
 };
