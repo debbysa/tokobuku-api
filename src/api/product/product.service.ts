@@ -1,4 +1,4 @@
-import { Sequelize, where } from "sequelize/types";
+import { Sequelize } from "sequelize";
 import productModel from "./product.model";
 import {
   ProductAttribute,
@@ -12,6 +12,11 @@ export default class ProductService {
       attributes: ["productName", "stock", "price"],
     });
   }
+
+  getProductByProductName(productName: string) {
+    return productModel.findAll({ where: { productName: productName } });
+  }
+
   orderProduct(id_product: number) {
     return productModel.update(
       // @ts-ignore
