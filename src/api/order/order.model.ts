@@ -7,11 +7,11 @@ import { OrderInstance } from "./order.type";
 const orderModel = sequelize.define<OrderInstance>(
   "order",
   {
-    // id_order: {
-    //   type: DataTypes.INTEGER,
-    //   primaryKey: true,
-    //   autoIncrement: true,
-    // },
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     id_user: {
       type: DataTypes.STRING,
     },
@@ -25,8 +25,8 @@ const orderModel = sequelize.define<OrderInstance>(
       type: DataTypes.INTEGER,
     },
     status: {
-      type: DataTypes.INTEGER,
-      defaultValue: 1,
+      type: DataTypes.ENUM("pending", "success", "failed"),
+      defaultValue: "pending",
     },
   },
   { timestamps: false, tableName: "order" }

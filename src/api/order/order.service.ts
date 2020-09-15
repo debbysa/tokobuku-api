@@ -1,11 +1,29 @@
-import { INTEGER } from "sequelize/types";
-import { any } from "sequelize/types/lib/operators";
+import ProductService from "../product/product.service";
 import orderModel from "./order.model";
-import { OrderCreationAttributes, OrderInstance } from "./order.type";
+import {
+  OrderAttributes,
+  OrderCreationAttributes,
+  OrderInstance,
+} from "./order.type";
+
+const productService = new ProductService();
 
 export default class OrderService {
   getOrderByUser(id_user: string) {
     return orderModel.findAll({ where: { id_user: id_user } });
+  }
+
+  getRandomizedStatus(): OrderAttributes["status"] {
+    const arrayStatus: OrderAttributes["status"][] = ["success", "failed"];
+    const randomNumber = Math.floor(Math.random() * arrayStatus.length);
+    return arrayStatus[randomNumber];
+  }
+
+  finalizeOrderStatus(id: number) {
+    return orderModel.update(
+      { status: this.getRandomizedStatus() },
+      { where: { id } }
+    );
   }
 
   createOrder(order: OrderCreationAttributes) {
@@ -17,22 +35,10 @@ export default class OrderService {
           quantity: order.quantity,
           price: order.price,
         });
-        const timer = (time: number) => {
-          new Promise((resolve) => setTimeout(resolve, time));
-        };
-        const listStatus = [2, 3];
-        const randomListStatus = Math.floor(Math.random() * (3 - 2)) + 2;
-        await timer(30000);
-        orderModel.update(
-          {
-            status: randomListStatus,
-          },
-          {
-            where: {
-              id_product: orderCreate.id_product,
-            },
-          }
-        );
+        await productService.orderProduct(orderCreate.id_product);
+        setTimeout(() => {
+          this.finalizeOrderStatus(orderCreate.id);
+        }, 30000);
         resolve(orderCreate);
       } catch (error) {
         reject(error);

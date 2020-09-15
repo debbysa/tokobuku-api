@@ -1,16 +1,16 @@
 import { Model, Optional } from "sequelize";
 
 export interface OrderAttributes {
-  //   id_order: number;
+  id: number;
   id_user: number;
   id_product: number;
   quantity: number;
   price: number;
-  status: number;
+  status: "pending" | "success" | "failed";
 }
 
 export interface OrderCreationAttributes
-  extends Optional<OrderAttributes, "status"> {}
+  extends Optional<OrderAttributes, "status" | "id"> {}
 
 export interface OrderInstance
   extends Model<OrderAttributes, OrderCreationAttributes>,
