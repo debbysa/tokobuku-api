@@ -1,10 +1,5 @@
 import { Sequelize } from "sequelize";
 import productModel from "./product.model";
-import {
-  ProductAttribute,
-  ProductCreationAttributes,
-  ProductInstance,
-} from "./product.type";
 
 export default class ProductService {
   getAllProduct() {
